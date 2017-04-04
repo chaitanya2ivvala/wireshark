@@ -149,7 +149,7 @@ if( isset($_POST['login']) ) {
 <link rel="stylesheet" href='css/bootstrap.min.css'>
 </head>
 
-<body background='1.jpg' style="max-width:100%;overflow-x:hidden;" >
+<body background='images/1.jpg' style="max-width:100%;overflow-x:hidden;" >
 <nav class="navbar navbar-inverse">
 <center><h2 style='color:white'>WIRESHARK</center>
 
@@ -175,7 +175,7 @@ if( isset($_POST['login']) ) {
   <div class="form-group">
     <label class="col-sm-3" for="exampleInputName2">Username</label>
 	<div class='col-md-9'>
-    <input type="text" name='username' class="form-control" id="exampleInputName2" placeholder="username">
+    <input type="text" name='username' class="form-control" id="exampleInputName2" placeholder="Username">
 	<br>
 	<span class="text-danger"><?php echo $nameError; ?></span>
 	</div>
@@ -202,7 +202,7 @@ if( isset($_POST['login']) ) {
   <div class="form-group">
     <label class="col-sm-3" for="exampleInputPassword1">Re-Type Password</label>
 	<div class='col-md-9'>
-    <input type="password" name='retypepassword' class="form-control" id="exampleInputPassword1" placeholder="repeat Password">
+    <input type="password" name='retypepassword' class="form-control" id="exampleInputPassword1" placeholder="Re-Type Password">
 	<br>
 	<span class="text-danger"><?php echo $repassError; ?></span>
   </div>
