@@ -143,7 +143,6 @@ if( isset($_POST['login']) ) {
 	?>
 
 <html>
-
 <head>
 <center><title>WIRESHARK</title></center>
 <link rel="stylesheet" href='css/bootstrap.min.css'>
