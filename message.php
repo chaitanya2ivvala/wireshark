@@ -123,30 +123,29 @@
                                            
                                                
                                                 <div class="media-body" >
-                                                    <?php
-  
-  $result = mysql_query("SELECT * from users WHERE status='1'");
-
-while($row=mysql_fetch_array($result))
-{
-	
-	?>
-
-
-		<a href='message.php'><?php echo $row['username']; ?></a><br>
-	
-
-	<?php
-}
-?>
+                                                    <h5>NASIR | User </h5>
                                                     
-                                                   
+                                                   <small class="text-muted">Active From 3 hours</small>
                                                 </div>
                                             
 
                                         </div>
                                     </li>
-                          
+                         
+             						<li class="media">
+
+                                        <div class="media-body">
+
+                                            
+                                                <div class="media-body" >
+                                                    <h5>ANUSHA | User </h5>
+                                                    
+                                                   <small class="text-muted">Active From 3 hours</small>
+                                                </div>
+                                            
+
+                                        </div>
+                                    </li>
                                     
                                     
 									
@@ -158,8 +157,5 @@ while($row=mysql_fetch_array($result))
     </div>
 </div>
   </div>
-  </div>
-  </div>
-
 </body>
 </html>
