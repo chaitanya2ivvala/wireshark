@@ -20,8 +20,7 @@ require('core.inc.php');
 </head> 
 
 <body>
-  <form action="index.php" method="post">
-    <lable>Enter Name:<input type="text" name="sender"/></lable>
+
       <lable> Enter Message:<input type="text" name="message" /></lable>
          <input type="submit" name="send" value="Send Message"/>
  </form> 
@@ -30,19 +29,15 @@ require('core.inc.php');
 
 <div id="messages">
 <?php
-  $res=mysql_query("SELECT * FROM chat");
-	$userRow=mysql_fetch_array($res);
-	 
-	foreach($messages){
-	echo $userRow['sender']; 
-	?><br>
-		<?php
-	echo $userRow['message']; 
-		
-	}
+  $messages=get_message();
+  foreach($messages as $message){
+	   
+	   echo '<strong>' ,$message['sender'],'Sent</strong><br />';
+	   echo $message['message'],'<br /><br/>';
+	   
 	   
 	  
-   
+   }
 
 ?>
 

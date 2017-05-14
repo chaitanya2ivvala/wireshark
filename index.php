@@ -81,9 +81,26 @@ if (isset($_POST['signup']) ) {
 		
 			$query = "INSERT INTO users(username,email,password,ip,time) VALUES('$username','$email','$password','$ip','$time')";
 			$res = mysql_query($query);
+			
+			$to      = $email; // Send email to our user
+$subject = 'Signup | Verification'; // Give the email a subject 
+$message = '
+ 
+Thanks for signing up!
+Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
+ 
+
+ 
+Please click this link to activate your account:
+https://localhost/wireshark/verify.php?email='.$email.'
+ 
+'; // Our message above including the link// Our message above including the link
+                     
+$headers = 'From:wireshark07@gmail.com' . "\r\n"; // Set from headers
+mail($to, $subject, $message, $headers); // Send our email
 			if ($res) {
 				$errTyp = "success";
-				$errMSG = "Successfully registered, you may login now";
+				$errMSG = "Registration Successfully, activate your account from email  ";
 				unset($username);
 				unset($email);
 				unset($password);
@@ -132,6 +149,10 @@ if( isset($_POST['login']) ) {
 			
 			if( $count == 1 && $row['password']==$password ) {
 				$_SESSION['user'] = $row['id'];
+				$tm=date("Y-m-d H:i:s");
+				
+				$query = "UPDATE users SET status='1',checkin='$tm' where id={$_SESSION['user']}";
+                mysql_query($query);
 				header("Location: home.php");
 			} else {
 				$loerrMSG = "Incorrect Credentials, Try again...";
@@ -144,7 +165,7 @@ if( isset($_POST['login']) ) {
 
 <html>
 <head>
-<center><title>WIRESHARK</title></center>
+<title>WIRESHARK</title>
 <link rel="stylesheet" href='css/bootstrap.min.css'>
 </head>
 
