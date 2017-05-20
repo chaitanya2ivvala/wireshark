@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     /*post message via ajax*/
     $("#reply").on("click", function(){

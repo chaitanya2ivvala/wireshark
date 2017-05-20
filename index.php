@@ -2,7 +2,7 @@
 ob_start();
 	session_start();
 	if( isset($_SESSION['user'])){
-		header("Location: home.php");
+		header("Location: chat.php");
 	}
 
 include_once 'connect.php';
@@ -153,7 +153,7 @@ if( isset($_POST['login']) ) {
 				
 				$query = "UPDATE users SET status='1',checkin='$tm' where id={$_SESSION['user']}";
                 mysql_query($query);
-				header("Location: home.php");
+				header("Location: chat.php");
 			} else {
 				$loerrMSG = "Incorrect Credentials, Try again...";
 			}

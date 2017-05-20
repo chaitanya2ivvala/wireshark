@@ -9,8 +9,34 @@
 	}
 	// select loggedin users detail
 	$res=mysql_query("SELECT * FROM users WHERE id=".$_SESSION['user']);
-	$userRow=mysql_fetch_array($res);
-?>
+if(isset($_POST['reply'])){
+        $message = mysql_real_escape_string($_POST['message'],$conn);
+        $conversation_id = mysql_real_escape_string($_POST['conversation_id'],$conn);
+        $user_form = mysql_real_escape_string($_POST['user_form'],$conn);
+        $user_to = mysql_real_escape_string($_POST['user_to'],$conn);
+ 
+        //decrypt the conversation_id,user_from,user_to
+        $conversation_id = base64_decode($conversation_id);
+        $user_form = base64_decode($user_form);
+        $user_to = base64_decode($user_to);
+		$ip=$_SERVER['REMOTE_ADDR'];
+		
+		$time=date("Y-m-d H:i:s");
+		
+	
+		echo $user_form;
+		echo $user_to;
+		
+ 
+        //insert into `messages`
+        $q = mysql_query("INSERT INTO 'messages' (sender,reciver,chatid,ip,time,message) VALUES ('$user_form','$user_to','$conversation_id','$ip','$time','$message')");
+        if($q){
+            echo "Posted";
+        }else{
+            echo "Error";
+        }
+    }
+	?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +51,6 @@
 	
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-<center><h2 style='color:white'>WIRESHARK</center>
-
-</nav>
     
      
     <div class="message-body">
@@ -41,7 +63,7 @@
                     //display all the results
                     while($row = mysql_fetch_array($q)){
 						
-					echo "<a href='chat.php?id={$row['id']}'><li> {$row['username']}</li></a>";
+					echo "<a href='test.php?id={$row['id']}'><li> {$row['username']}</li></a>";
 						
                     }
                 ?>
@@ -85,16 +107,18 @@
             <!-- /display message -->
  
             <!-- send message -->
+			 <form action="test.php" method='post'>
             <div class="send-message">
                 <!-- store conversation_id, user_from, user_to so that we can send send this values to post_message_ajax.php -->
-                <input type="hidden" id="conversation_id" value="<?php echo base64_encode($conversation_id); ?>">
-                <input type="hidden" id="user_form" value="<?php echo base64_encode($userid); ?>">
-                <input type="hidden" id="user_to" value="<?php echo base64_encode($user_two); ?>">
+                <input type="hidden" name="conversation_id" id="conversation_id" value="<?php echo base64_encode($conversation_id); ?>">
+                <input type="hidden" name="user_form" id="user_form" value="<?php echo base64_encode($userid); ?>">
+                <input type="hidden" name="user_to" id="user_to" value="<?php echo base64_encode($user_two); ?>">
                 <div class="form-group">
-                    <textarea class="form-control" id="message" placeholder="Enter Your Message"></textarea>
+                    <textarea class="form-control" name="message" id="message" placeholder="Enter Your Message"></textarea>
                 </div>
-                <button class="btn btn-primary" id="reply">Reply</button> 
+                <button class="btn btn-primary" type="submit" name='reply' id="reply">Reply</button> 
                 <span id="error"></span>
+				</form>
             </div>
             <!-- / send message -->
         </div>
