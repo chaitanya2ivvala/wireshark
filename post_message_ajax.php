@@ -14,7 +14,28 @@
 		$ip=$_SERVER['REMOTE_ADDR'];
 		
 		$time=date("Y-m-d H:i:s");
+		
+		
+  //get name and image of $user_form from `user` table
+                $user = mysql_query( "SELECT * FROM `users` WHERE id='$user_to'");
+                $user_fetch = mysql_fetch_assoc($user);
+                $user_to_username = $user_fetch['username'];
+				$user_to_email = $user_fetch['email'];
+				$user_to_status = $user_fetch['status'];
+			
+				
+				if($user_to_status == 0){
+				$to      = $user_to_email; // Send email to our user
+                $subject = 'new message'; // Give the email a subject 
+                $message1 = '
  
+                  new message
+ 
+'; // Our message above including the link// Our message above including the link
+                     
+$headers = 'From:wireshark07@gmail.com' . "\r\n"; // Set from headers
+mail($to, $subject, $message1, $headers); // Send our email
+				}
         //insert into `messages`
 		$query="INSERT INTO messages (sender,reciver,chatid,ip,time,message) VALUES ('$user_form','$user_to','$conversation_id','$ip','$time','$message')";
        $res = mysql_query($query);

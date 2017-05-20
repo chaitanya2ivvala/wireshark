@@ -1,5 +1,6 @@
 <?php
    include_once 'connect.php';
+    include 'timeago.php';
     if(isset($_GET['c_id'])){
         //get the conversation id and
         $conversation_id = base64_decode($_GET['c_id']);
@@ -13,12 +14,14 @@
                 $user_to = $m['reciver'];
                 $message = $m['message'];
 				$time = $m['time'];
+				$timeago=get_timeago(strtotime($time));
+
+									
  
                 //get name and image of $user_form from `user` table
                 $user = mysql_query( "SELECT * FROM `users` WHERE id='$user_form'");
                 $user_fetch = mysql_fetch_assoc($user);
                 $user_form_username = $user_fetch['username'];
-			
                 
                
  
@@ -27,9 +30,9 @@
                             <div class='message'>
                                 
                                 <div class='text-con'>
-                                    <a href='#'>{$user_form_username}</a>
-                                    <h4>{$message}</h4>
-									 <p>{$time}</p>
+                                    <a href='#'>{$user_form_username}</a>  <span>{$timeago}</span>
+									<p>{$message}</p>
+								
                                 </div>
                             </div>
                             <hr>";
@@ -38,9 +41,6 @@
         }else{
             echo "No Messages";
         }
-			
-					
-				
     }
  
 ?>
