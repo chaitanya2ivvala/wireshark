@@ -153,6 +153,9 @@ if( isset($_POST['login']) ) {
 				
 				$query = "UPDATE users SET status='1',checkin='$tm' where id={$_SESSION['user']}";
                 mysql_query($query);
+				
+				$query = "UPDATE messages SET msg_read='1' where reciver={$_SESSION['user']}";
+                mysql_query($query);
 				header("Location: chat.php");
 			} else {
 				$loerrMSG = "Incorrect Credentials, Try again...";
@@ -165,13 +168,13 @@ if( isset($_POST['login']) ) {
 
 <html>
 <head>
-<title>WIRESHARK</title>
+<title>WIRESHARK MESSENGER</title>
 <link rel="stylesheet" href='css/bootstrap.min.css'>
 </head>
 
 <body background='images/1.jpg' style="max-width:100%;overflow-x:hidden;" >
 <nav class="navbar navbar-inverse">
-<center><h2 style='color:white'>WIRESHARK</center>
+<center><h2 style='color:white'>WIRESHARK MESSENGER</center>
 
 </nav>
   <div class="row">

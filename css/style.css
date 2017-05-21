@@ -163,7 +163,7 @@
 /*message*/
 .message-body{
     display: block;
-    height: 600px;
+    height: 550px;
     width: 70%;
     margin:0px auto;
     border:1px solid #ccc;
@@ -209,15 +209,15 @@
 }
 .message-right .display-message{
     display: block;
-    height: 80%;
+    height: 75%;
     width: 100%;
     border-bottom: 1px solid #ccc;
     overflow-y:scroll;
 }
 .message-right .send-message{
-    height: 20%;
+    height: 25%;
     background: #eee;
-    padding: 10px;
+    padding: 5px;
 }
 .display-message .message{
     min-height: 60px;

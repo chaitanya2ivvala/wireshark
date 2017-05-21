@@ -35,10 +35,16 @@
                      
 $headers = 'From:wireshark07@gmail.com' . "\r\n"; // Set from headers
 mail($to, $subject, $message1, $headers); // Send our email
-				}
+				
         //insert into `messages`
-		$query="INSERT INTO messages (sender,reciver,chatid,ip,time,message) VALUES ('$user_form','$user_to','$conversation_id','$ip','$time','$message')";
+		$query="INSERT INTO messages (sender,reciver,chatid,ip,time,message,msg_read) VALUES ('$user_form','$user_to','$conversation_id','$ip','$time','$message','0')";
        $res = mysql_query($query);
+	   }
+	   else{
+		   
+		$query="INSERT INTO messages (sender,reciver,chatid,ip,time,message,msg_read) VALUES ('$user_form','$user_to','$conversation_id','$ip','$time','$message','1')";
+       $res = mysql_query($query);   
+	   }
         if($res){
             echo "Posted";
         }else{

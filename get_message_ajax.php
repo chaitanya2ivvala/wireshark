@@ -14,6 +14,7 @@
                 $user_to = $m['reciver'];
                 $message = $m['message'];
 				$time = $m['time'];
+				$read = $m['msg_read'];
 				$timeago=get_timeago(strtotime($time));
 
 									
@@ -24,18 +25,32 @@
                 $user_form_username = $user_fetch['username'];
                 
                
- 
+ if($read == 0){
                 //display the message
                 echo "
                             <div class='message'>
                                 
                                 <div class='text-con'>
-                                    <a href='#'>{$user_form_username}</a>  <span>{$timeago}</span>
-									<p>{$message}</p>
+                                    <a href='#'>{$user_form_username}</a>  <span>{$timeago}</span> <span>not seen</span>
+									<p>{$message}</p> 
 								
                                 </div>
                             </div>
                             <hr>";
+ }else{
+	 
+	 //display the message
+                echo "
+                            <div class='message'>
+                                
+                                <div class='text-con'>
+                                    <a href='#'>{$user_form_username}</a>  <span>{$timeago}</span> <span>seen</span>
+									<p>{$message}</p> 
+								
+                                </div>
+                            </div>
+                            <hr>";
+ }
  
             }
         }else{
