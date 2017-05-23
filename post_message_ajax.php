@@ -22,16 +22,25 @@
                 $user_to_username = $user_fetch['username'];
 				$user_to_email = $user_fetch['email'];
 				$user_to_status = $user_fetch['status'];
+				
+				  $userform = mysql_query( "SELECT * FROM `users` WHERE id='$user_form'");
+                $userform_fetch = mysql_fetch_assoc($userform);
+                $user_form_username = $userform_fetch['username'];
+				$user_form_email = $userform_fetch['email'];
+				$user_form_status = $userform_fetch['status'];
 			
+			
+				
 				
 				if($user_to_status == 0){
 				$to      = $user_to_email; // Send email to our user
-                $subject = 'new message'; // Give the email a subject 
-                $message1 = '
+                $subject = ' message from '  .$user_form_username. ' ' ; // Give the email a subject 
+                $message1 = ''
  
-                  new message
+                  .$message. ' click this link to see the message:
+https://localhost/wireshark/ '
  
-'; // Our message above including the link// Our message above including the link
+; // Our message above including the link// Our message above including the link
                      
 $headers = 'From:wireshark07@gmail.com' . "\r\n"; // Set from headers
 mail($to, $subject, $message1, $headers); // Send our email

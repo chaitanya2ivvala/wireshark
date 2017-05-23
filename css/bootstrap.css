@@ -4943,7 +4943,7 @@ a.badge:focus {
 }
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #337ab7;
+  color: #07090c;
   background-color: #fff;
 }
 .list-group-item > .badge {
@@ -5411,8 +5411,8 @@ button.list-group-item-warning.active:focus {
   border-color: #8a6d3b;
 }
 .list-group-item-danger {
-  color: #a94442;
-  background-color: #f2dede;
+  color: #07090c;
+  background-color:#fff ;
 }
 a.list-group-item-danger,
 button.list-group-item-danger {

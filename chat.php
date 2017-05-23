@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	
    
@@ -50,8 +50,8 @@
           <ul class="dropdown-menu">
             <li><a href="logout.php">logout</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Available</a></li>
-			<li><a href="#">Busy</a></li>
+            <li><a href="available.php">Available</a></li>
+			<li><a href="busy.php">Busy</a></li>
           </ul>
         </li>
       </ul>
@@ -61,6 +61,10 @@
      
     <div class="message-body">
         <div class="message-left">
+		 <div class='navbar navbar-inverse'>
+								
+								<a href='#' class="navbar-brand">Address Book</a>
+								</div>
             <ul>
                 <?php
                     //show all the users expect me
@@ -70,7 +74,27 @@
                     while($row = mysql_fetch_array($q)){
 						
 					echo "<a href='chat.php?id={$row['id']}'><li> {$row['username']}</li></a>";
-						
+					if ($row['status']==1){
+						?>
+						<span class="label label-success">online</span>
+						<?php
+					}
+					else if ($row['status']==0) {
+						?>
+						<span class="label label-danger">offline</span>
+						<?php
+					}
+					else if ($row['status']==2) {
+						?>
+						<span class="label label-info">available</span>
+						<?php
+					}
+					else if ($row['status']==3) {
+						?>
+						<span class="label label-warning">busy</span>
+						<?php
+					}
+					echo "<hr>";	
                     }
                 ?>
             </ul>
@@ -78,9 +102,19 @@
  
         <div class="message-right">
             <!-- display message -->
-            <div class="display-message">
+			<div class='head-con'>
+								<?php
+									$userto = mysql_query( "SELECT * FROM `users` WHERE id='$user_two'");
+                $userto_fetch = mysql_fetch_assoc($userto);
+                $user_to_username = $userto_fetch['username'];
+				?>
+								<a href='#'><?php echo "{$user_to_username}" ?></a>
+								</div>
+                              
+            
+			
             <?php
-                //check $_GET&#91;'id'&#93; is set
+                //check $_GET['id']; is set
                 if(isset($_GET)){
 					
                      $user_two = trim(mysql_real_escape_string($_GET['id'],$conn ));
@@ -108,8 +142,20 @@
                 }else {
                     die("Click On the Person to start Chating.");
                 }
+				
             ?>
+			  <div class='navbar navbar-inverse'>
+								<?php
+									$userto = mysql_query( "SELECT * FROM `users` WHERE id='$user_two'");
+                $userto_fetch = mysql_fetch_assoc($userto);
+                $user_to_username = $userto_fetch['username'];
+				?>
+								<a href='#' class="navbar-brand" ><?php echo "{$user_to_username}" ?></a>
+								</div>
+								
+								<div class="display-message">
             </div>
+			
             <!-- /display message -->
  
             <!-- send message -->

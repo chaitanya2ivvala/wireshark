@@ -163,8 +163,8 @@
 /*message*/
 .message-body{
     display: block;
-    height: 550px;
-    width: 70%;
+    height: 540px;
+    width: 90%;
     margin:0px auto;
     border:1px solid #ccc;
 }
@@ -178,7 +178,7 @@
 }
 .message-right{
     display: block;
-    height: 100%;
+    height: 80%;
     width: 70%;
     float: left;
 }
@@ -193,7 +193,7 @@
 }
 .message-left ul a li{
     padding: 5px;
-    border-bottom: 1px solid #ccc;
+   
     font-weight: bold;
     color: black;
 }
@@ -215,7 +215,7 @@
     overflow-y:scroll;
 }
 .message-right .send-message{
-    height: 25%;
+    height: 33%;
     background: #eee;
     padding: 5px;
 }
@@ -231,6 +231,11 @@
 .message .img-con > img{
     height: 50px;
     width: 50px;
+}
+.message .head-con{
+    width: 90%;
+    float: left;
+    
 }
 .message .text-con{
     width: 90%;

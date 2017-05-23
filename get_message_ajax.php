@@ -23,33 +23,38 @@
                 $user = mysql_query( "SELECT * FROM `users` WHERE id='$user_form'");
                 $user_fetch = mysql_fetch_assoc($user);
                 $user_form_username = $user_fetch['username'];
+				
                 
                
  if($read == 0){
                 //display the message
-                echo "
+                ?>
                             <div class='message'>
-                                
+                                <div class='head-con'>
+								
+								</div>
                                 <div class='text-con'>
-                                    <a href='#'>{$user_form_username}</a>  <span>{$timeago}</span> <span>not seen</span>
-									<p>{$message}</p> 
+                                    <a href='#'><?php echo "{$user_form_username}"?></a>  <span><?php echo "{$timeago}"?></span> <span class="glyphicon glyphicon-remove"></span>
+									<p><?php echo "{$message}" ?></p> 
 								
                                 </div>
                             </div>
-                            <hr>";
+                            <hr>
+							<?php
  }else{
 	 
 	 //display the message
-                echo "
+                ?>
                             <div class='message'>
                                 
                                 <div class='text-con'>
-                                    <a href='#'>{$user_form_username}</a>  <span>{$timeago}</span> <span>seen</span>
-									<p>{$message}</p> 
+                                    <a href='#'><?php echo "{$user_form_username}"?></a>  <span><?php echo "{$timeago}"?></span> <span class="glyphicon glyphicon-ok"></span>
+									<p><?php echo "{$message}" ?></p> 
 								
                                 </div>
                             </div>
-                            <hr>";
+                            <hr>
+							<?php
  }
  
             }
