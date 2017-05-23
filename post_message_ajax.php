@@ -32,7 +32,7 @@
 			
 				
 				
-				if($user_to_status == 0){
+				if($user_to_status == 0 || $user_to_status == 3 ){
 				$to      = $user_to_email; // Send email to our user
                 $subject = ' message from '  .$user_form_username. ' ' ; // Give the email a subject 
                 $message1 = ''
