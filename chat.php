@@ -44,7 +44,26 @@
    
      
       <ul class="nav navbar-nav navbar-right">
-       
+       <?php
+								if ($userRow['status']==1){
+						?>
+						<span class="label label-success">online</span>
+						<?php
+					}
+					
+					else if ($userRow['status']==2) {
+						?>
+						<span class="label label-info">available</span>
+						<?php
+					}
+					else if ($userRow['status']==3) {
+						?>
+						<span class="label label-warning">busy</span>
+						<?php
+					}
+						
+                    
+                ?>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $userRow['username']; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -52,6 +71,7 @@
             <li role="separator" class="divider"></li>
             <li><a href="available.php">Available</a></li>
 			<li><a href="busy.php">Busy</a></li>
+			<li><a href="online.php">online</a></li>
           </ul>
         </li>
       </ul>
@@ -64,7 +84,11 @@
 		 <div class='navbar navbar-inverse'>
 								
 								<a href='#' class="navbar-brand">Address Book</a>
-								</div>
+								  
+								
+				
+				
+					</div>			
             <ul>
                 <?php
                     //show all the users expect me
