@@ -30,9 +30,7 @@
                 //display the message
                 ?>
                             <div class='message'>
-                                <div class='head-con'>
-								
-								</div>
+                                
                                 <div class='text-con'>
                                     <a href='#'><?php echo "{$user_form_username}"?></a>  <span><?php echo "{$timeago}"?></span> <span class="glyphicon glyphicon-remove"></span>
 									<p><?php echo "{$message}" ?></p> 

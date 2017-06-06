@@ -44,6 +44,9 @@
    
      
       <ul class="nav navbar-nav navbar-right">
+	  <li class = "active"><a href="chat.php">Messages</a></li>
+	  <li><a href="sentfile.php">Sent files</a></li>
+	  <li><a href="recivefile.php">Recived files</a></li>
        <?php
 								if ($userRow['status']==1){
 						?>
@@ -192,6 +195,16 @@
                     <textarea class="form-control" id="message" placeholder="Enter Your Message"></textarea>
                 </div>
                 <button class="btn btn-primary" id="reply">Reply</button> 
+				<form action="upload.php" method="post" enctype="multipart/form-data">
+				 <input type="hidden" name="conversation_id" value="<?php echo base64_encode($conversation_id); ?>">
+                <input type="hidden" name="user_form" value="<?php echo base64_encode($userid); ?>">
+                <input type="hidden" name="user_to" value="<?php echo base64_encode($user_two); ?>">
+		        <input type="file" name="file" />
+		        <button class="btn btn-default" type="submit" name="btn-upload">upload</button>
+		
+		</form>
+				
+  
                 <span id="error"></span>
             </div>
             <!-- / send message -->

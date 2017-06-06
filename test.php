@@ -9,41 +9,16 @@
 	}
 	// select loggedin users detail
 	$res=mysql_query("SELECT * FROM users WHERE id=".$_SESSION['user']);
-if(isset($_POST['reply'])){
-        $message = mysql_real_escape_string($_POST['message'],$conn);
-        $conversation_id = mysql_real_escape_string($_POST['conversation_id'],$conn);
-        $user_form = mysql_real_escape_string($_POST['user_form'],$conn);
-        $user_to = mysql_real_escape_string($_POST['user_to'],$conn);
- 
-        //decrypt the conversation_id,user_from,user_to
-        $conversation_id = base64_decode($conversation_id);
-        $user_form = base64_decode($user_form);
-        $user_to = base64_decode($user_to);
-		$ip=$_SERVER['REMOTE_ADDR'];
-		
-		$time=date("Y-m-d H:i:s");
-		
-	
-		echo $user_form;
-		echo $user_to;
-		
- 
-        //insert into `messages`
-        $q = mysql_query("INSERT INTO 'messages' (sender,reciver,chatid,ip,time,message) VALUES ('$user_form','$user_to','$conversation_id','$ip','$time','$message')");
-        if($q){
-            echo "Posted";
-        }else{
-            echo "Error";
-        }
-    }
-	?>
+	$userRow=mysql_fetch_array($res);
+?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wireshark Messanger</title>
+    <title>WIRESHARK MESSENGER</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	
    
@@ -51,10 +26,69 @@ if(isset($_POST['reply'])){
 	
 </head>
 <body>
-    
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">WIRESHARK MESSENGER</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+   
+     
+      <ul class="nav navbar-nav navbar-right">
+       <?php
+								if ($userRow['status']==1){
+						?>
+						<span class="label label-success">online</span>
+						<?php
+					}
+					
+					else if ($userRow['status']==2) {
+						?>
+						<span class="label label-info">available</span>
+						<?php
+					}
+					else if ($userRow['status']==3) {
+						?>
+						<span class="label label-warning">busy</span>
+						<?php
+					}
+						
+                    
+                ?>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $userRow['username']; ?> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="logout.php">logout</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="available.php">Available</a></li>
+			<li><a href="busy.php">Busy</a></li>
+			<li><a href="online.php">online</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
      
     <div class="message-body">
         <div class="message-left">
+		 <div class='navbar navbar-inverse'>
+								
+								<a href='#' class="navbar-brand">Address Book</a>
+								  
+								
+				
+				
+					</div>			
             <ul>
                 <?php
                     //show all the users expect me
@@ -64,7 +98,27 @@ if(isset($_POST['reply'])){
                     while($row = mysql_fetch_array($q)){
 						
 					echo "<a href='test.php?id={$row['id']}'><li> {$row['username']}</li></a>";
-						
+					if ($row['status']==1){
+						?>
+						<span class="label label-success">online</span>
+						<?php
+					}
+					else if ($row['status']==0) {
+						?>
+						<span class="label label-danger">offline</span>
+						<?php
+					}
+					else if ($row['status']==2) {
+						?>
+						<span class="label label-info">available</span>
+						<?php
+					}
+					else if ($row['status']==3) {
+						?>
+						<span class="label label-warning">busy</span>
+						<?php
+					}
+					echo "<hr>";	
                     }
                 ?>
             </ul>
@@ -72,9 +126,19 @@ if(isset($_POST['reply'])){
  
         <div class="message-right">
             <!-- display message -->
-            <div class="display-message">
+			<div class='head-con'>
+								<?php
+									$userto = mysql_query( "SELECT * FROM `users` WHERE id='$user_two'");
+                $userto_fetch = mysql_fetch_assoc($userto);
+                $user_to_username = $userto_fetch['username'];
+				?>
+								<a href='#'><?php echo "{$user_to_username}" ?></a>
+								</div>
+                              
+            
+			
             <?php
-                //check $_GET&#91;'id'&#93; is set
+                //check $_GET['id']; is set
                 if(isset($_GET)){
 					
                      $user_two = trim(mysql_real_escape_string($_GET['id'],$conn ));
@@ -102,23 +166,44 @@ if(isset($_POST['reply'])){
                 }else {
                     die("Click On the Person to start Chating.");
                 }
+				
             ?>
+			  <div class='navbar navbar-inverse'>
+								<?php
+									$userto = mysql_query( "SELECT * FROM `users` WHERE id='$user_two'");
+                $userto_fetch = mysql_fetch_assoc($userto);
+                $user_to_username = $userto_fetch['username'];
+				?>
+								<a href='#' class="navbar-brand" ><?php echo "{$user_to_username}" ?></a>
+								</div>
+								
+								<div class="display-message">
             </div>
+			
             <!-- /display message -->
  
             <!-- send message -->
-			 <form action="test.php" method='post'>
             <div class="send-message">
                 <!-- store conversation_id, user_from, user_to so that we can send send this values to post_message_ajax.php -->
-                <input type="hidden" name="conversation_id" id="conversation_id" value="<?php echo base64_encode($conversation_id); ?>">
-                <input type="hidden" name="user_form" id="user_form" value="<?php echo base64_encode($userid); ?>">
-                <input type="hidden" name="user_to" id="user_to" value="<?php echo base64_encode($user_two); ?>">
+                <input type="hidden" id="conversation_id" value="<?php echo base64_encode($conversation_id); ?>">
+                <input type="hidden" id="user_form" value="<?php echo base64_encode($userid); ?>">
+                <input type="hidden" id="user_to" value="<?php echo base64_encode($user_two); ?>">
                 <div class="form-group">
-                    <textarea class="form-control" name="message" id="message" placeholder="Enter Your Message"></textarea>
+                    <textarea class="form-control" id="message" placeholder="Enter Your Message"></textarea>
                 </div>
-                <button class="btn btn-primary" type="submit" name='reply' id="reply">Reply</button> 
+                <button class="btn btn-primary" id="reply">Reply</button> 
+				
+		
+		        
+		<input type="file" name="file" id="file" />
+		
+		
+		<button class="btn btn-default" type="submit" id="btn-upload" name="btn-upload">upload</button>
+		
+		
+				
+  
                 <span id="error"></span>
-				</form>
             </div>
             <!-- / send message -->
         </div>

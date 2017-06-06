@@ -209,15 +209,15 @@
 }
 .message-right .display-message{
     display: block;
-    height: 75%;
+    height: 65%;
     width: 100%;
     border-bottom: 1px solid #ccc;
     overflow-y:scroll;
 }
 .message-right .send-message{
-    height: 33%;
+    height: 35%;
     background: #eee;
-    padding: 5px;
+    padding: 2px;
 }
 .display-message .message{
     min-height: 60px;

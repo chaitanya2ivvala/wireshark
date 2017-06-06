@@ -16,6 +16,23 @@ $(document).ready(function(){
             });
         }
     });
+	
+	$("#btn-upload").on("click", function(){
+        var file = $.trim($("#file").val()),
+            conversation_id = $.trim($("#conversation_id").val()),
+            user_form = $.trim($("#user_form").val()),
+            user_to = $.trim($("#user_to").val()),
+            error = $("#error");
+ 
+        if((file != "") && (conversation_id != "") && (user_form != "") && (user_to != "")){
+            error.text("Sending...");
+            $.post("testupload.php",{file:file,conversation_id:conversation_id,user_form:user_form,user_to:user_to}, function(data){
+                error.text(data);
+                
+            });
+        }
+    });
+	
  
  
     //get message

@@ -143,11 +143,11 @@ if( isset($_POST['login']) ) {
 			
 			$password = hash('sha256', $password); // password hashing using SHA256
 		
-			$res=mysql_query("SELECT id, username,email,password FROM users WHERE email='$email'");
+			$res=mysql_query("SELECT * FROM users WHERE email='$email'");
 			$row=mysql_fetch_array($res);
 			$count = mysql_num_rows($res); // if uname/pass correct it returns must be 1 row
 			
-			if( $count == 1 && $row['password']==$password ) {
+			if( $count == 1 && $row['password']==$password && $row['activation']==1 && $row['block']==0 ) {
 				$_SESSION['user'] = $row['id'];
 				$tm=date("Y-m-d H:i:s");
 				
@@ -157,7 +157,13 @@ if( isset($_POST['login']) ) {
 				$query = "UPDATE messages SET msg_read='1' where reciver={$_SESSION['user']}";
                 mysql_query($query);
 				header("Location: chat.php");
-			} else {
+			} else if($row['activation']==0) {
+				$loerrMSG = "Please Activate your account!";
+			}
+			else if($row['block']==1) {
+				$loerrMSG = "your account was blocked.";
+			}
+			else {
 				$loerrMSG = "Incorrect Credentials, Try again...";
 			}
 				
